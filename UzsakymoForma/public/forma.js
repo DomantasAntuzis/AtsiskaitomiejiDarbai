@@ -8,19 +8,25 @@ const pristatymas3 = document.getElementById("pristatymas3");
 
 function updatePristatymas() {
   if (pristatymasRadio1.checked) {
-    pristatymas1.style.display = "inline";
+    pristatymas1.style.display = "block";
+    pristatymas1.setAttribute('required','')
   } else {
     pristatymas1.style.display = "none";
+    pristatymas1.removeAttribute('required');
   }
   if (pristatymasRadio2.checked) {
-    pristatymas2.style.display = "inline";
+    pristatymas2.style.display = "block";
+    pristatymas2.setAttribute('required','');
   } else {
     pristatymas2.style.display = "none";
+    pristatymas2.removeAttribute('required');
   }
   if (pristatymasRadio3.checked) {
-    pristatymas3.style.display = "inline";
+    pristatymas3.style.display = "block";
+    pristatymas3.setAttribute('required', '');
   } else {
     pristatymas3.style.display = "none";
+    pristatymas3.removeAttribute('required');
   }
 }
 
