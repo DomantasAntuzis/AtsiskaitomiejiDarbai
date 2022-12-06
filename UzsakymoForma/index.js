@@ -47,24 +47,24 @@ function GenerateForm(
     <label>El.paštas: </label><input type="text" name="email" value="${el_pastas}" placeholder="gmail" required><br>
     <label>Tel. nr.: </label><input type="text" name="phone" value="${Tel_nr}" required placeholder="8 *** *****"><br>
     <label>užsakomos prekės: </label>
-    <textarea name="tekstas">${uzsakoma_preke}</textarea><br>
+    <textarea name="tekstas" required>${uzsakoma_preke}</textarea><br>
     <label>Pristatymo budas</label> 
-    <input type="radio" name="radio1" value="Kurjeris" id="pristatymasRadio1" ${
+    <input type="radio" name="radio1" value="Kurjeris" required id="pristatymasRadio1" ${
       pristatymo_budas == "Kurjeris" ? " checked" : ""
     }/>`;
-  form += `<span>Kurjeris</span></label><label><input type="radio" name="radio1" value="Pastomatas" id="pristatymasRadio2" ${
+  form += `<span>Kurjeris</span></label><label><input type="radio" required name="radio1" value="Pastomatas" id="pristatymasRadio2" ${
     pristatymo_budas == "Pastomatas" ? " checked" : ""
-  }/><span>Paštomatas</span></label><label><input type="radio" name="radio1" value="Parduotuve" id="pristatymasRadio3" ${
+  }/><span>Paštomatas</span></label><label><input type="radio" required name="radio1" value="Parduotuve" id="pristatymasRadio3" ${
     pristatymo_budas == "Parduotuve" ? " checked" : ""
   }/><span>Parduotuvė</span></label><br>`;
 
-  form += `<div id="pristatymas1"><label>Rajonas: </label> <input type="text" name="rajonas" value="${rajonas}" placeholder="district"><br>
-  <label>Miestas: </label> <input type="text" name="miestas1" value="${miestas1}" placeholder="city"><br>
-  <label>Adresas: </label> <input type="text" name="adresas" value="${adresas}" placeholder="address"><br>
-  <label>Pašto kodas: </label> <input type="text" name="pastokodas" value="${pastokodas}" placeholder="ZIP code">
+  form += `<div id="pristatymas1"><label>Rajonas: </label> <input type="text" name="rajonas" class="inputsfor1" value="${rajonas}" placeholder="district"><br>
+  <label>Miestas: </label> <input type="text" name="miestas1" value="${miestas1}" class="inputsfor1" placeholder="city"><br>
+  <label>Adresas: </label> <input type="text" name="adresas" value="${adresas}" class="inputsfor1" placeholder="address"><br>
+  <label>Pašto kodas: </label> <input type="text" name="pastokodas" value="${pastokodas}" class="inputsfor1" placeholder="ZIP code">
   </div>`;
-  form += `<div id="pristatymas2"><label>Miestas: </label><input type="text" name="miestas2" value="${miestas2}" placeholder="city"></div>`;
-  form += `<div id="pristatymas3"><label>Parduotuvė: </label><select name="Parduotuve"><option value="Gargždu IKI" ${
+  form += `<div id="pristatymas2"><label>Miestas: </label><input type="text" name="miestas2" id="inputsfor2" value="${miestas2}" placeholder="city"></div>`;
+  form += `<div id="pristatymas3"><label>Parduotuvė: </label><select name="Parduotuve" id="inputsfor3"><option value="Gargždu IKI" ${
     parduotuve == "Gargždu IKI" ? " selected" : ""
   } >Gardgždų IKI</option>
   <option value="Klaipedos akropolis" ${
@@ -179,17 +179,20 @@ index.post("/prekiu_uzsakymas", (req, res) => {
       resp_text += `Parduotuve: ${parduotuve}<br>`;
     }
     resp_text += `Komentaras: ${komentaras}`;
-    resp_text += '<script>window.alert("informacija gauta")</script>';
-    if (vardas == "") {
+    // resp_text += '<script>window.alert("informacija gauta")</script>';
+    if (
+      vardas == "" ||
+      pavarde == "" ||
+      el_pastas == "" ||
+      Tel_nr == ""
+    ) {
       let html = fullHTML();
-      console.log("test");
       res.send(html);
     } else {
       res.send(resp_text);
     }
   } else {
     let html = fullHTML();
-    console.log("test");
     res.send(html);
   }
 });
