@@ -13,21 +13,27 @@ let inputsfor3 = document.getElementById("inputsfor3");
 function updatePristatymas() {
   if (pristatymasRadio1.checked) {
     pristatymas1.style.display = "block";
-    inputsfor1[0].setAttribute('required','');
+    for(let i = 0; i < inputsfor1.length; i++){
+    inputsfor1[i].setAttribute('required','')};
   } else {
     pristatymas1.style.display = "none";
+    for(let i = 0; i < inputsfor1.length; i++){
+    inputsfor1[i].removeAttribute('required')};
   }
   if (pristatymasRadio2.checked) {
     pristatymas2.style.display = "block";
     inputsfor2.setAttribute('required','');
   } else {
     pristatymas2.style.display = "none";
+    inputsfor2.removeAttribute('required');
   }
   if (pristatymasRadio3.checked) {
     pristatymas3.style.display = "block";
     inputsfor3.setAttribute('required', '');
   } else {
     pristatymas3.style.display = "none";
+    inputsfor3.removeAttribute('required');
+
   }
 }
 

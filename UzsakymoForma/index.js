@@ -42,10 +42,10 @@ function GenerateForm(
 ) {
   let form = "";
   form += `<form action="http://localhost:3000/prekiu_uzsakymas" method="post">
-    <label>Vardas: </label><input type="text" name="vardas"  value="${vardas}" placeholder="name" required><br>
-    <label>Pavarde: </label><input type="text" name="pavarde" value="${pavarde}" placeholder="surname" required><br>
-    <label>El.paštas: </label><input type="text" name="email" value="${el_pastas}" placeholder="gmail" required><br>
-    <label>Tel. nr.: </label><input type="text" name="phone" value="${Tel_nr}" required placeholder="8 *** *****"><br>
+    <label>Vardas: </label><input type="text" name="vardas"  value="${vardas}" placeholder="Vardas" required><br>
+    <label>Pavarde: </label><input type="text" name="pavarde" value="${pavarde}" placeholder="Pavardė" required><br>
+    <label>El.paštas: </label><input type="text" name="email" value="${el_pastas}" placeholder="Gmail" required><br>
+    <label>Tel. nr.: </label><input type="text" name="phone" value="${Tel_nr}" required placeholder="Prašome nenaudoti Fake Filler"><br>
     <label>užsakomos prekės: </label>
     <textarea name="tekstas" required>${uzsakoma_preke}</textarea><br>
     <label>Pristatymo budas</label> 
@@ -58,12 +58,12 @@ function GenerateForm(
     pristatymo_budas == "Parduotuve" ? " checked" : ""
   }/><span>Parduotuvė</span></label><br>`;
 
-  form += `<div id="pristatymas1"><label>Rajonas: </label> <input type="text" name="rajonas" class="inputsfor1" value="${rajonas}" placeholder="district"><br>
-  <label>Miestas: </label> <input type="text" name="miestas1" value="${miestas1}" class="inputsfor1" placeholder="city"><br>
-  <label>Adresas: </label> <input type="text" name="adresas" value="${adresas}" class="inputsfor1" placeholder="address"><br>
-  <label>Pašto kodas: </label> <input type="text" name="pastokodas" value="${pastokodas}" class="inputsfor1" placeholder="ZIP code">
+  form += `<div id="pristatymas1"><label>Rajonas: </label> <input type="text" name="rajonas" class="inputsfor1" value="${rajonas}" placeholder="Rajonas"><br>
+  <label>Miestas: </label> <input type="text" name="miestas1" value="${miestas1}" class="inputsfor1" placeholder="Miestas"><br>
+  <label>Adresas: </label> <input type="text" name="adresas" value="${adresas}" class="inputsfor1" placeholder="Adresas"><br>
+  <label>Pašto kodas: </label> <input type="text" name="pastokodas" value="${pastokodas}" class="inputsfor1" placeholder="Pašto kodas">
   </div>`;
-  form += `<div id="pristatymas2"><label>Miestas: </label><input type="text" name="miestas2" id="inputsfor2" value="${miestas2}" placeholder="city"></div>`;
+  form += `<div id="pristatymas2"><label>Miestas: </label><input type="text" name="miestas2" id="inputsfor2" value="${miestas2}" placeholder="Miestas"></div>`;
   form += `<div id="pristatymas3"><label>Parduotuvė: </label><select name="Parduotuve" id="inputsfor3"><option value="Gargždu IKI" ${
     parduotuve == "Gargždu IKI" ? " selected" : ""
   } >Gardgždų IKI</option>
@@ -141,7 +141,13 @@ index.post("/prekiu_uzsakymas", (req, res) => {
   let adresas = "";
   let pastokodas = "";
   let parduotuve = "";
+
   if (req.body.vardas) {
+    let emailpattern =
+      /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    let phonepattern =
+      /^[\+]?[(]?[0-9]{1,3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{5}$/;
+
     vardas = validate(req.body.vardas);
     pavarde = validate(req.body.pavarde);
     el_pastas = validate(req.body.email);
@@ -179,12 +185,15 @@ index.post("/prekiu_uzsakymas", (req, res) => {
       resp_text += `Parduotuve: ${parduotuve}<br>`;
     }
     resp_text += `Komentaras: ${komentaras}`;
-    // resp_text += '<script>window.alert("informacija gauta")</script>';
+    resp_text += `<script>window.alert("Forma išsiųsta sėkmingai")</script>`;
+
     if (
       vardas == "" ||
       pavarde == "" ||
       el_pastas == "" ||
-      Tel_nr == ""
+      Tel_nr == "" ||
+      emailpattern.test(el_pastas) == false ||
+      phonepattern.test(Tel_nr) == false
     ) {
       let html = fullHTML();
       res.send(html);
