@@ -1,6 +1,7 @@
 const express = require("express");
 const index = express();
 const port = 3000;
+const fs = require("fs");
 
 index.use(express.static("public"));
 
@@ -142,12 +143,12 @@ index.post("/prekiu_uzsakymas", (req, res) => {
   let pastokodas = "";
   let parduotuve = "";
 
-  if (req.body.vardas) {
-    let emailpattern =
-      /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    let phonepattern =
-      /^[\+]?[(]?[0-9]{1,3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{5}$/;
+  let emailpattern =
+    /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  let phonepattern =
+    /^[\+]?[(]?[0-9]{1,3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{5}$/;
 
+  if (req.body.vardas) {
     vardas = validate(req.body.vardas);
     pavarde = validate(req.body.pavarde);
     el_pastas = validate(req.body.email);
@@ -162,30 +163,33 @@ index.post("/prekiu_uzsakymas", (req, res) => {
     pastokodas = validate(req.body.pastokodas);
     parduotuve = validate(req.body.Parduotuve);
 
-    let resp_text = "Formos informacija: <br>";
-    resp_text += `Vardas: ${vardas}<br>`;
-    resp_text += `Pavardė: ${pavarde}<br>`;
-    resp_text += `El. paštas: ${el_pastas}<br>`;
-    resp_text += `Tel_nr: ${Tel_nr}<br>`;
-    resp_text += `Užsakoma prekė: ${uzsakoma_preke}<br>`;
-    resp_text += `Radio pasirinkimas: ${pristatymo_budas}<br>`;
-
+    let array = [];
+    let object = {};
+    object.name =  `${vardas}`;
+    object.surename = `${pavarde}` ;
+    object.el_pastas = `${el_pastas}` ;
+    object.phone = `${Tel_nr}` ;
+    object.items = `${uzsakoma_preke}` ;
+    
     if (pristatymo_budas == "Pastomatas") {
-      resp_text += `Miestas: ${miestas2}<br>`;
+      object.city2 =  `${miestas2}` ;
     }
-
+    
     if (pristatymo_budas == "Kurjeris") {
-      resp_text += `Rajonas: ${rajonas}<br>`;
-      resp_text += `Miestas: ${miestas1}<br>`;
-      resp_text += `Adresas: ${adresas}<br>`;
-      resp_text += `Pasto kodas: ${pastokodas}<br>`;
+      object.city1 =   `${miestas1}` ;
+      object.district =  ` ${rajonas}` ;
+      object.address  =  `${adresas}` ;
+      object.ZIP_code  =  `${pastokodas}` ;
+      
     }
-
+    
     if (pristatymo_budas == "Parduotuve") {
-      resp_text += `Parduotuve: ${parduotuve}<br>`;
+      object.shop  = `${parduotuve}` ;
     }
-    resp_text += `Komentaras: ${komentaras}`;
-    resp_text += `<script>window.alert("Forma išsiųsta sėkmingai")</script>`;
+    object.comment = `${komentaras}` ;    
+    array.push(object);
+
+    let StringofObjects = JSON.stringify(array);
 
     if (
       vardas == "" ||
@@ -198,7 +202,12 @@ index.post("/prekiu_uzsakymas", (req, res) => {
       let html = fullHTML();
       res.send(html);
     } else {
-      res.send(resp_text);
+      fs.appendFile("Duomenys.json", StringofObjects, function (err) {
+        if (err) {
+          console.log(err);
+        }
+      });
+      res.send(StringofObjects);
     }
   } else {
     let html = fullHTML();
