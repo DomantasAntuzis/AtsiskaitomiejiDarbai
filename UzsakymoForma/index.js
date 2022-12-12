@@ -3,6 +3,8 @@ const index = express();
 const port = 3000;
 const fs = require("fs");
 
+index.use(express.json());
+
 index.use(express.static("public"));
 
 index.use(express.urlencoded({ extended: true }));
@@ -163,34 +165,6 @@ index.post("/prekiu_uzsakymas", (req, res) => {
     pastokodas = validate(req.body.pastokodas);
     parduotuve = validate(req.body.Parduotuve);
 
-    let array = [];
-    let object = {};
-    object.name =  `${vardas}`;
-    object.surename = `${pavarde}` ;
-    object.el_pastas = `${el_pastas}` ;
-    object.phone = `${Tel_nr}` ;
-    object.items = `${uzsakoma_preke}` ;
-    
-    if (pristatymo_budas == "Pastomatas") {
-      object.city2 =  `${miestas2}` ;
-    }
-    
-    if (pristatymo_budas == "Kurjeris") {
-      object.city1 =   `${miestas1}` ;
-      object.district =  ` ${rajonas}` ;
-      object.address  =  `${adresas}` ;
-      object.ZIP_code  =  `${pastokodas}` ;
-      
-    }
-    
-    if (pristatymo_budas == "Parduotuve") {
-      object.shop  = `${parduotuve}` ;
-    }
-    object.comment = `${komentaras}` ;    
-    array.push(object);
-
-    let StringofObjects = JSON.stringify(array);
-
     if (
       vardas == "" ||
       pavarde == "" ||
@@ -202,12 +176,57 @@ index.post("/prekiu_uzsakymas", (req, res) => {
       let html = fullHTML();
       res.send(html);
     } else {
-      fs.appendFile("Duomenys.json", StringofObjects, function (err) {
+      let array = [];
+
+
+      let object = {};
+      object.name = `${vardas}`;
+      object.surename = `${pavarde}`;
+      object.el_pastas = `${el_pastas}`;
+      object.phone = `${Tel_nr}`;
+      object.items = `${uzsakoma_preke}`;
+
+      if (pristatymo_budas == "Pastomatas") {
+        object.city2 = `${miestas2}`;
+      }
+
+      if (pristatymo_budas == "Kurjeris") {
+        object.city1 = `${miestas1}`;
+        object.district = ` ${rajonas}`;
+        object.address = `${adresas}`;
+        object.ZIP_code = `${pastokodas}`;
+      }
+
+      if (pristatymo_budas == "Parduotuve") {
+        object.shop = `${parduotuve}`;
+      }
+      object.comment = `${komentaras}`;
+
+
+      fs.readFile("Duomenys.json", function (err, data) {
+        if (err) {
+          console.log(err);
+        } 
+
+
+      
+        let array = [];
+        try {
+          array = JSON.parse(data);
+        } catch (err) {
+          console.error(err);
+        }
+    
+        array.push(object);
+    
+
+      fs.writeFile("Duomenys.json", JSON.stringify(array), function (err) {
         if (err) {
           console.log(err);
         }
       });
-      res.send(StringofObjects);
+    });
+      res.send('Užsakymas gautas');
     }
   } else {
     let html = fullHTML();
