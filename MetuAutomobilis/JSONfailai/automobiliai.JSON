@@ -1,0 +1,60 @@
+[{ "id": 1,
+   "pavadinimas": "Volkswagen Taigo",
+   "img": "/photos/volkswagen-taigo-6103f08a675a6.jpg",
+   "charakteristikos":  {
+       "Variklis": "Benzininis, 999 cm3",
+       "Bagažinės talpa l": "438",
+       "Ilgis/Plotis/Aukštis_mm": "4528/2082/1601",
+       "Maksimalus greitis": "191 km/val",
+       "CO2 emisija": "135 g/km",
+       "Pigiausio modelio kaina": "20930 EUR su PVM"
+     }
+ },
+{ "id": 2,
+   "pavadinimas": "Opel Astra",
+   "img": "/photos/opel-astra-6357c1bf00e83.jpg",
+   "charakteristikos":  {
+       "Variklis": "Benzininis, 1200 cm3",
+       "Bagažinės talpa l": "422-1339",
+       "Ilgis/Plotis/Aukštis_mm": "4374/1860-2062/1442-1472",
+       "Maksimalus greitis": "210 km/val",
+       "CO2 emisija": "131-133 g/km",
+       "Pigiausio modelio kaina": "22700 EUR su PVM"
+     }
+ },
+ { "id": 3,
+   "pavadinimas": "Skoda fabia",
+   "img": "/photos/skoda-fabia-6357c45a2a866.jpg",
+   "charakteristikos":  {
+       "Variklis": "Benzininis, 999 cm3",
+       "Bagažinės talpa l": "380-1190",
+       "Ilgis/Plotis/Aukštis_mm": "4108/1780/1459",
+       "Maksimalus greitis": "205 km/val",
+       "CO2 emisija": "124–138 g/km",
+       "Pigiausio modelio kaina": "18720 EUR su PVM"
+     }
+ },
+ { "id": 4,
+   "pavadinimas": "Honda Civic",
+   "img": "/photos/lietuvos-metu-automobilis-2023-m-honda-civic-6365389869972.jpg",
+   "charakteristikos":  {
+       "Variklis": "benzininis hibridinis, 1993 cm3",
+       "Bagažinės talpa l": "409",
+       "Ilgis/Plotis/Aukštis_mm": "4551/1802/1408",
+       "Maksimalus greitis": "180 km/val",
+       "CO2 emisija": "114 g/km",
+       "Pigiausio modelio kaina": "32380 EUR"
+     }
+ },{ "id": 5,
+ "pavadinimas": "Honda HRV",
+ "img": "/photos/pretendentas-i-lietuvos-metu-automobilio-2023-m-titula-honda-hrv-6366501d72d32.jpg",
+ "charakteristikos":  {
+     "Variklis": "benzininis hibridinis, 1498 cm3",
+     "Bagažinės talpa l": "319",
+     "Ilgis/Plotis/Aukštis_mm": "4340/1790/1582",
+     "Maksimalus greitis": "170 km/val",
+     "CO2 emisija": "122 g/km",
+     "Pigiausio modelio kaina": "32220 EUR"
+   }
+}
+]
