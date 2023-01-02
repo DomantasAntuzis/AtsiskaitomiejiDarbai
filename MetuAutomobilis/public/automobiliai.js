@@ -10,11 +10,9 @@ function korteles() {
   <h5 class="card-title" style="text-align:center">${auto[i].pavadinimas}</h5>
 </div>
 <ul class="list-group list-group-flush">
-  <li class="list-group-item"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Aprašymas
+  <li class="list-group-item"><button id="id${i}">Aprašymas</button>
 </button></li>
-  <li class="list-group-item"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Charakteristikos
+  <li class="list-group-item"><button id="charakteristikos">Chatakteristikos</button>
 </button></li>
 </ul>
 <div class="card-body">
@@ -27,11 +25,7 @@ function korteles() {
   return card;
 }
 
-function aprasymas_modal(){}
-
-
 
 
 korteles();
 
-console.log(auto[2].img);
