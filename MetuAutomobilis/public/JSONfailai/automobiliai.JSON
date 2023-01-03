@@ -1,10 +1,11 @@
 [{ "id": 1,
    "pavadinimas": "Volkswagen Taigo",
-   "img": "http://localhost:3000/photos/volkswagen-taigo-6103f08a675a6.jpg",
+   "img": "http://localhost:3000/aprasymai/photos/automobilis_1.jpg",
+   "aprasymas": "http://localhost:3000/aprasymai/aprasymas_1.html",
    "charakteristikos":  {
        "Variklis": "Benzininis, 999 cm3",
-       "Bagažinės_talpa l": "438",
-       "Ilgis/Plotis/Aukštis_mm": "4528/2082/1601",
+       "Bagažinės_talpa_l": "438",
+       "Ilgis_Plotis_Aukštis_mm": "4528/2082/1601",
        "Maksimalus_greitis": "191 km/val",
        "CO2_emisija": "135 g/km",
        "Pigiausio_modelio_kaina": "20930 EUR su PVM"
@@ -12,23 +13,25 @@
  },
 { "id": 2,
    "pavadinimas": "Opel Astra",
-   "img": "http://localhost:3000/photos/opel-astra-6357c1bf00e83.jpg",
+   "img": "http://localhost:3000/aprasymai/photos/automobilis_2.jpg",
+   "aprasymas": "http://localhost:3000/aprasymai/aprasymas_2.html",
    "charakteristikos":  {
        "Variklis": "Benzininis, 1200 cm3",
-       "Bagažinės_talpa l": "422-1339",
-       "Ilgis/Plotis/Aukštis_mm": "4374/1860-2062/1442-1472",
+       "Bagažinės_talpa_l": "422-1339",
+       "Ilgis_Plotis_Aukštis_mm": "4374/1860-2062/1442-1472",
        "Maksimalus_greitis": "210 km/val",
        "CO2_emisija": "131-133 g/km",
        "Pigiausio_modelio_kaina": "22700 EUR su PVM"
      }
  },
  { "id": 3,
-   "pavadinimas": "Skoda fabia",
-   "img": "http://localhost:3000/photos/skoda-fabia-6357c45a2a866.jpg",
+   "pavadinimas": "Škoda fabia",
+   "img": "http://localhost:3000/aprasymai/photos/automobilis_3.jpg",
+   "aprasymas": "http://localhost:3000/aprasymai/aprasymas_3.html",
    "charakteristikos":  {
        "Variklis": "Benzininis, 999 cm3",
        "Bagažinės_talpa_l": "380-1190",
-       "Ilgis/Plotis/Aukštis_mm": "4108/1780/1459",
+       "Ilgis_Plotis_Aukštis_mm": "4108/1780/1459",
        "Maksimalus_greitis": "205 km/val",
        "CO2_emisija": "124–138 g/km",
        "Pigiausio_modelio_kaina": "18720 EUR su PVM"
@@ -36,22 +39,24 @@
  },
  { "id": 4,
    "pavadinimas": "Honda Civic",
-   "img": "http://localhost:3000/photos/lietuvos-metu-automobilis-2023-m-honda-civic-6365389869972.jpg",
+   "img": "http://localhost:3000/aprasymai/photos/automobilis_4.jpg",
+   "aprasymas": "http://localhost:3000/aprasymai/aprasymas_4.html",
    "charakteristikos":  {
        "Variklis": "benzininis hibridinis, 1993 cm3",
        "Bagažinės_talpa_l": "409",
-       "Ilgis/Plotis/Aukštis_mm": "4551/1802/1408",
+       "Ilgis_Plotis_Aukštis_mm": "4551/1802/1408",
        "Maksimalus_greitis": "180 km/val",
        "CO2_emisija": "114 g/km",
        "Pigiausio_modelio_kaina": "32380 EUR"
      }
  },{ "id": 5,
  "pavadinimas": "Honda HRV",
- "img": "http://localhost:3000/photos/pretendentas-i-lietuvos-metu-automobilio-2023-m-titula-honda-hrv-6366501d72d32.jpg",
+ "img": "http://localhost:3000/aprasymai/photos/automobilis_5.jpg",
+ "aprasymas": "http://localhost:3000/aprasymai/aprasymas_5.html",
  "charakteristikos":  {
      "Variklis": "benzininis hibridinis, 1498 cm3",
      "Bagažinės_talpa_l": "319",
-     "Ilgis/Plot-is/Aukštis_mm": "4340/1790/1582",
+     "Ilgis_Plotis_Aukštis_mm": "4340/1790/1582",
      "Maksimalusgreitis": "170 km/val",
      "CO2_emisija": "122 g/km",
      "Pigiausio_modelio_kaina": "32220 EUR"
