@@ -1,8 +1,8 @@
 import auto from "http://localhost:3000/JSONfailai/automobiliai.JSON" assert { type: "json" };
 
+
 for (let i = 0; i < auto.length; i++) {
-  document
-    .getElementById(`charakteristikos${i + 1}`)
+  document.getElementById(`charakteristikos${i + 1}`)
     .addEventListener("click", function () {
       let charakteristiku_lentele = "";
       charakteristiku_lentele += `<p>Variklis: ${auto[i].charakteristikos.Variklis}</p>
@@ -20,9 +20,8 @@ for (let i = 0; i < auto.length; i++) {
 
 // Get the modal
 
-var modal = document.getElementById("aprasymas_div");
-var modal2 = document.getElementById("charakteristikos_div");
-
+var modal2 = document.getElementById("aprasymas_div");
+var modal = document.getElementById("charakteristikos_div");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[1];

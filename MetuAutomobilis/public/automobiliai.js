@@ -14,8 +14,8 @@ function korteles() {
   <li class="list-group-item"><button id="charakteristikos${i + 1}">Chatakteristikos</button>
 </button></li>
 </ul>
-<div class="card-body">
-<button type="button" class="btn btn-primary">Balsuoti</button>
+<div id="card-body${i + 1}">
+<button id="balsuoti${i + 1}">Balsuoti</button>
 </div>
 </div>`;
   }
