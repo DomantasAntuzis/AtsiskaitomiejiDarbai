@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+const fs = require("fs");
 const path = require("path");
-const fs = require("fs").promises;
 const cookieParser = require("cookie-parser");
 const sessions = require("express-session");
 
-const DataPath = path.join(__dirname, "/public/data.json");
+const axios = require("axios");
 
 app.use(express.json());
 
@@ -30,31 +30,61 @@ app.use(
   })
 );
 
-app.get("/", async (req, res) => {
-  // let data = JSON.parse(await fs.readFile(DataPath, "utf-8"));
-  // const totalVotes = Object.values(data).reduce((total, n) => (total += n), 0);
-  // data = Object.entries(data).map(([id, votes]) => {
-  //   return {
-  //     id,
-  //     percentage: ((100 * votes) / totalVotes || 0).toFixed(0),
-  //   };
-  // });
-  // console.log(data[0])
-  res.sendFile(path.join(__dirname + "/public/svetaine.html"));
+// let rawdata =fs.readFileSync(__dirname + '/public/svetaine.html', 'utf8')
+// console.log(rawdata);
 
-  // res.json(data)
+const test = fs.readFileSync(__dirname + "/public/data.json", "utf8");
+const auto = fs.readFileSync(__dirname + "/public/JSONfailai/automobiliai.JSON", "utf8");
+
+app.get("/", async (req, res) => {
+  res.sendFile(__dirname + "/public/svetaine.html");
 });
 
-app.post("/", function (req, res) {
-  // fs.readFile("data.json", function (err, data) {
-  //   if (err) {
-  //     console.log(err);
-  //   }
+app.post("/", async (req, res) => {
+  let automobilioID = JSON.parse(req.body.run);
 
-  //     res.send("gauta");
-  //   }
-  // });
-  res.send("gauta")
+  let parsed = JSON.parse(test);
+
+  parsed[automobilioID]++;
+
+  let duomenys = parsed;
+
+  let autoParsed = JSON.parse(auto);
+
+  const totalVotes = Object.values(parsed).reduce(
+    (total, n) => (total += n),
+    0
+  );
+
+  duomenys = Object.entries(duomenys).map(([id, votes]) => {
+    return {
+      pavadinimas: autoParsed[id - 1].pavadinimas,
+      votes,
+      percentage: ((100 * votes) / totalVotes || 0).toFixed(0),
+    };
+  });
+  let keys;
+  let values;
+
+  let rezultatai = "";
+
+  for (let e = 0; e < duomenys.length; e++) {
+    keys = Object.keys(duomenys[e]);
+            values = Object.values(duomenys[e]);
+            for (let g = 0; g < keys.length; g++) {
+              if (g == 2) {
+                rezultatai +=`${keys[g]}:` + ` ` + ` ${values[g]}` +  `%<br>`;
+              } else {
+                rezultatai += `${keys[g]}:` + ` ` + ` ${values[g]};` + ` `;
+              }
+            }
+          }
+  
+
+
+  fs.writeFileSync(__dirname + "/public/data.json", JSON.stringify(parsed));
+
+  res.send(rezultatai);
 });
 
 app.listen(port, () => {

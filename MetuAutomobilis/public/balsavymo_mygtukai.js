@@ -19,7 +19,7 @@ for (let i = 0; i < auto.length; i++) {
 
           data = Object.entries(data).map(([id, votes]) => {
             return {
-              id,
+              pavadinimas: auto[id - 1].pavadinimas,
               votes,
               percentage: ((100 * votes) / totalVotes || 0).toFixed(0),
             };
@@ -31,11 +31,15 @@ for (let i = 0; i < auto.length; i++) {
           let testing = "";
 
           for (let e = 0; e < data.length; e++) {
+            document.getElementById(`balsuoti${e + 1}`).style.display = "none";
             keys = Object.keys(data[e]);
             values = Object.values(data[e]);
-            for (let g = 0; g < 3; g++) {
-              testing += `${keys[g]}:` + ` ${values[g]};`;
-              testing += `<br>`;
+            for (let g = 0; g < keys.length; g++) {
+              if (g == 2) {
+                testing +=`${keys[g]}:` + ` ` + ` ${values[g]}` +  `%<br>`;
+              } else {
+                testing += `${keys[g]}:` + ` ` + ` ${values[g]};` + ` `;
+              }
             }
           }
 
@@ -46,4 +50,3 @@ for (let i = 0; i < auto.length; i++) {
         });
     });
 }
-

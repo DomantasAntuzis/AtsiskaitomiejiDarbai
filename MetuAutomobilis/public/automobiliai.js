@@ -15,7 +15,7 @@ function korteles() {
 </button></li>
 </ul>
 <div id="card-body${i + 1}">
-<button id="balsuoti${i + 1}">Balsuoti</button>
+<input type="submit" value="${i+1}" id="balsuoti${i + 1}" name="run"></input>
 </div>
 </div>`;
   }
