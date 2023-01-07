@@ -30,10 +30,7 @@ app.use(
   })
 );
 
-// let rawdata =fs.readFileSync(__dirname + '/public/svetaine.html', 'utf8')
-// console.log(rawdata);
-
-const test = fs.readFileSync(__dirname + "/public/data.json", "utf8");
+const balsai = fs.readFileSync(__dirname + "/public/data.json", "utf8");
 const auto = fs.readFileSync(__dirname + "/public/JSONfailai/automobiliai.JSON", "utf8");
 
 app.get("/", async (req, res) => {
@@ -43,22 +40,22 @@ app.get("/", async (req, res) => {
 app.post("/", async (req, res) => {
   let automobilioID = JSON.parse(req.body.run);
 
-  let parsed = JSON.parse(test);
+  let ParsedBalsai = JSON.parse(balsai);
 
-  parsed[automobilioID]++;
+  ParsedBalsai[automobilioID]++;
 
-  let duomenys = parsed;
+  let VotesData = ParsedBalsai;
 
   let autoParsed = JSON.parse(auto);
 
-  const totalVotes = Object.values(parsed).reduce(
+  const totalVotes = Object.values(ParsedBalsai).reduce(
     (total, n) => (total += n),
     0
   );
 
-  duomenys = Object.entries(duomenys).map(([id, votes]) => {
+  VotesData = Object.entries(VotesData).map(([id, votes]) => {
     return {
-      pavadinimas: autoParsed[id - 1].pavadinimas,
+      name: autoParsed[id - 1].pavadinimas,
       votes,
       percentage: ((100 * votes) / totalVotes || 0).toFixed(0),
     };
@@ -66,26 +63,76 @@ app.post("/", async (req, res) => {
   let keys;
   let values;
 
-  let rezultatai = "";
+  let rezultataiTEXT = "";
 
-  for (let e = 0; e < duomenys.length; e++) {
-    keys = Object.keys(duomenys[e]);
-            values = Object.values(duomenys[e]);
-            for (let g = 0; g < keys.length; g++) {
-              if (g == 2) {
-                rezultatai +=`${keys[g]}:` + ` ` + ` ${values[g]}` +  `%<br>`;
-              } else {
-                rezultatai += `${keys[g]}:` + ` ` + ` ${values[g]};` + ` `;
-              }
-            }
-          }
-  
+  for (let e = 0; e < VotesData.length; e++) {
+    keys = Object.keys(VotesData[e]);
+    values = Object.values(VotesData[e]);
+    for (let g = 0; g < keys.length; g++) {
+      if (g == 2) {
+        rezultataiTEXT += `${keys[g]}:` + ` ` + ` ${values[g]}` + `%<br>`;
+      } else {
+        rezultataiTEXT += `${keys[g]}:` + ` ` + ` ${values[g]};` + ` `;
+      }
+    }
+  }
 
+  fs.writeFileSync(__dirname + "/public/data.json", JSON.stringify(ParsedBalsai));
 
-  fs.writeFileSync(__dirname + "/public/data.json", JSON.stringify(parsed));
-
-  res.send(rezultatai);
+  res.send(rezultataiTEXT);
 });
+
+app.get("/api/automobiliai", (req, res) => {
+  res.send(auto);
+})
+
+app.get("/api/automobiliai/balsai", (req, res) => {
+
+  let ParsedBalsai = JSON.parse(balsai);
+
+  const totalVotes = Object.values(ParsedBalsai).reduce(
+    (total, n) => (total += n),
+    0
+  );
+
+  
+  let VotesData = ParsedBalsai;
+  
+    VotesData = Object.entries(VotesData).map(([id, votes]) => {
+    return {
+      id,
+      votes,
+      percentage: ((100 * votes) / totalVotes || 0).toFixed(0)
+    };
+  });
+
+
+  let newVotesData = VotesData.sort((a, b) => (a.votes < b.votes) ? 1 : -1);
+
+let i = 0;
+let l = 1;
+
+for( i; i < newVotesData.length; i++){
+  if (newVotesData[i].place==undefined){
+  for(let k = 0; k < newVotesData.length; k++){
+    if(k==i){
+      continue
+    }
+    else if(newVotesData[i].votes==newVotesData[k].votes){
+      newVotesData[k].place = newVotesData[i].place
+    }else{
+    newVotesData[i].place = l;
+}
+}
+l++}
+}
+  res.send(newVotesData);
+})
+
+// app.get("/api/automobilis/:id/aprasymas", (req, res) => {
+// console.log(auto[id].aprasymas)
+//   res.send()
+// })
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
