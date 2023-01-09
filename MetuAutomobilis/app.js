@@ -129,9 +129,22 @@ l++}
   res.send(newVotesData);
 })
 
-// app.get("/api/automobilis/:id/aprasymas", (req, res) => {
-// console.log(auto[id].aprasymas)
-//   res.send()
+app.get("/api/automobilis/:id/aprasymas", (req, res) => {
+let IDnumber = Number(req.params.id);
+const parsedAuto  = JSON.parse(auto);
+
+  let aprasymas;
+  for(let i = 0; i < parsedAuto.length; i++){
+    if(parsedAuto[i].id === IDnumber){
+      aprasymas=parsedAuto[i].aprasymas
+    }
+  }
+  console.log(aprasymas)
+  res.redirect(aprasymas);
+})
+
+// app.post("/api/automobilis/balsuoti", (req, res) => {
+
 // })
 
 app.listen(port, () => {
