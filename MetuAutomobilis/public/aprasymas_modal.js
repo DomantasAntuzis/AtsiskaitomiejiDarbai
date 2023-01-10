@@ -16,7 +16,7 @@ for (let i = 0; i < auto.length; i++) {
         let textas = doc.getElementById("aprasymas").innerHTML;
         // console.log(textas)
 
-        document.getElementById("aprasymas_text").innerHTML = textas;
+        document.getElementById("modal_text").innerHTML = textas;
         modal.style.display = "block";
       })
       .catch(function (err) {
@@ -27,8 +27,7 @@ for (let i = 0; i < auto.length; i++) {
 }
 
 // Get the modal
-var modal = document.getElementById("aprasymas_div");
-var modal2 = document.getElementById("charakteristikos_div");
+var modal = document.getElementById("modal_div");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
@@ -40,41 +39,8 @@ span.onclick = function () {
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
-  if (event.target == modal || event.target == modal2 ) {
+  if (event.target == modal ) {
     modal.style.display = "none";
-    modal2.style.display = "none"
   }
 };
-
-// function writeCookie(name,value,days) {
-//   var date, expires;
-//   if (days) {
-//       date = new Date();
-//       date.setTime(date.getTime()+(days*24*60*60*1000));
-//       expires = "; expires=" + date.toGMTString();
-//           }else{
-//       expires = "";
-//   }
-//   document.cookie = name + "=" + value + expires + "; path=/";
-// }
-
-
-// function readCookie(name) {
-//   var i, c, ca, nameEQ = name + "=";
-//   ca = document.cookie.split(';');
-//   for(i=0;i < ca.length;i++) {
-//       c = ca[i];
-//       while (c.charAt(0)==' ') {
-//           c = c.substring(1,c.length);
-//       }
-//       if (c.indexOf(nameEQ) == 0) {
-//           return c.substring(nameEQ.length,c.length);
-//       }
-//   }
-//   return '';
-// }
-
-// var sId = 'BandomasisSausainis';
-// writeCookie('sessionId', sId, 3);
-
 

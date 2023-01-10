@@ -3,7 +3,7 @@ import auto from "http://localhost:3000/JSONfailai/automobiliai.JSON" assert { t
 function korteles() {
   let card = "";
   for (let i = 0; i < auto.length; i++) {
-    card += `<div class="card" style="width: 18rem;">
+    card += `<div class="card col-md-4">
 <img src="${auto[i].img}" class="card-img-top" alt="...">
 <div class="card-body">
   <h5 class="card-title" style="text-align:center">${auto[i].pavadinimas}</h5>

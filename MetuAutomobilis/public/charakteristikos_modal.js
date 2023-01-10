@@ -12,7 +12,7 @@ for (let i = 0; i < auto.length; i++) {
       <p>CO2_emisija: ${auto[i].charakteristikos.CO2_emisija}</p><br>
       <p>Pigiausio_modelio_kaina: ${auto[i].charakteristikos.Pigiausio_modelio_kaina}</p><br>`;
 
-      document.getElementById("charakteristikos_text").innerHTML =
+      document.getElementById("modal_text").innerHTML =
         charakteristiku_lentele;
       modal.style.display = "block";
     });
@@ -20,21 +20,19 @@ for (let i = 0; i < auto.length; i++) {
 
 // Get the modal
 
-var modal2 = document.getElementById("aprasymas_div");
-var modal = document.getElementById("charakteristikos_div");
+var modal = document.getElementById("modal_div");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[1];
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-  modal.style.display = "none";
-};
+// // When the user clicks on <span> (x), close the modal
+// span.onclick = function () {
+//   modal.style.display = "none";
+// };
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
-  if (event.target == modal || event.target == modal2) {
+  if (event.target == modal) {
     modal.style.display = "none";
-    modal2.style.display = "none";
   }
 };
