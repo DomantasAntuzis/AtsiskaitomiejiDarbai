@@ -31,7 +31,7 @@ app.use(
 );
 
 var balsai = fs.readFileSync(
-  __dirname + "/public/JSONfailai/data.json",
+  __dirname + "/public/JSONfailai/balsai.json",
   "utf8"
 );
 const auto = fs.readFileSync(
@@ -43,8 +43,6 @@ const vartotojai = fs.readFileSync(
   "utf8"
 );
 
-// var session;
-
 app.get("/", function (req, res) {
   let session = req.session;
   if (session.userid) {
@@ -54,7 +52,7 @@ app.get("/", function (req, res) {
   }
 });
 
-app.post("/login", (req, res) => {
+app.post("/", (req, res) => {
   const ParsedVartotojai = JSON.parse(vartotojai);
   let length = ParsedVartotojai.length;
   let mypassword;
@@ -138,7 +136,7 @@ app.post("/balsuoti", function (req, res) {
 
   balsai =  JSON.stringify(ParsedBalsai);
   fs.writeFileSync(
-    __dirname + "/public/JSONfailai/data.json",
+    __dirname + "/public/JSONfailai/balsai.json",
     JSON.stringify(ParsedBalsai)
   );
 
@@ -204,13 +202,9 @@ app.get("/api/automobilis/:id/aprasymas", (req, res) => {
       aprasymas = parsedAuto[i].aprasymas;
     }
   }
-  console.log(aprasymas);
   res.redirect(aprasymas);
 });
 
-// app.post("/api/automobilis/balsuoti", (req, res) => {
-
-// })
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

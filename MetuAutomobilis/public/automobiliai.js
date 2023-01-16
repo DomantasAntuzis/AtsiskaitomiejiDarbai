@@ -13,10 +13,8 @@ function korteles() {
 </button></li>
   <li class="list-group-item"><button id="charakteristikos${i + 1}">Chatakteristikos</button>
 </button></li>
+<li class="list-group-item"><button type="submit" value="${i+1}" id="balsuoti${i + 1}" name="run" form="thisform">Balsuoti</button></li>
 </ul>
-<div id="card-body${i + 1}">
-<button type="submit" value="${i+1}" id="balsuoti${i + 1}" name="run" form="thisform">balsuoti</button>
-</div>
 </div>`;
   }
 
