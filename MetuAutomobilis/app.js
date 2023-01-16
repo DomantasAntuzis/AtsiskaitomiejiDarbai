@@ -30,7 +30,7 @@ app.use(
   })
 );
 
-const balsai = fs.readFileSync(
+var balsai = fs.readFileSync(
   __dirname + "/public/JSONfailai/data.json",
   "utf8"
 );
@@ -43,10 +43,10 @@ const vartotojai = fs.readFileSync(
   "utf8"
 );
 
-var session;
+// var session;
 
 app.get("/", function (req, res) {
-  session = req.session;
+  let session = req.session;
   if (session.userid) {
     res.sendFile(__dirname + "/public/svetaine.html");
   } else {
@@ -59,8 +59,6 @@ app.post("/login", (req, res) => {
   let length = ParsedVartotojai.length;
   let mypassword;
   let myusername;
-  let loginuser = req.body.user;
-  let loginpassword = req.body.pass;
   let userfound = false;
 
   for (let i = 0; i < length; i++) {
@@ -72,9 +70,8 @@ app.post("/login", (req, res) => {
     }
   }
   if (userfound) {
-    session = req.session;
+    let session = req.session;
     session.userid = req.body.user;
-    console.log(req.session);
     res.sendFile("/public/svetaine.html", { root: __dirname });
   } else {
     res.send(`Neteisinga prijungimo informacija!`);
@@ -94,12 +91,18 @@ app.post("/register", (req, res) => {
   res.sendFile("public/svetaine.html", { root: __dirname });
 });
 
-app.post("/", function (req, res) {
+app.post("/balsuoti", function (req, res) {
+  let session = req.session;
   let automobilioID = JSON.parse(req.body.run);
   let ParsedBalsai = JSON.parse(balsai);
-  ParsedBalsai[automobilioID]++;
+
+  if (session.VoteStatus != 1) {
+    ParsedBalsai[automobilioID]++;
+  }
+
   let VotesData = ParsedBalsai;
   let autoParsed = JSON.parse(auto);
+  session.VoteStatus = 1;
 
   const totalVotes = Object.values(ParsedBalsai).reduce(
     (total, n) => (total += n),
@@ -116,7 +119,6 @@ app.post("/", function (req, res) {
 
   let keys;
   let values;
-
   let rezultataiTEXT = "";
 
   for (let e = 0; e < VotesData.length; e++) {
@@ -133,6 +135,8 @@ app.post("/", function (req, res) {
     }
   }
 
+
+  balsai =  JSON.stringify(ParsedBalsai);
   fs.writeFileSync(
     __dirname + "/public/JSONfailai/data.json",
     JSON.stringify(ParsedBalsai)
