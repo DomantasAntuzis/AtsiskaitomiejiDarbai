@@ -16,7 +16,12 @@
   <body>
     <div class="container">
       <h1>Darbų sąrašas</h1>
-      <div id="darbai">{% include 'darbai.html' %}</div>
+      <div id="darbai">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
+          alt=""
+        />
+      </div>
     </div>
     <script>
       function veluojantysDarbai() {
@@ -41,44 +46,48 @@
         }
       }
 
-      veluojantysDarbai();
-
-
-     function atnaujintiMygtukus() {
-      let buttons = document.getElementsByClassName("senddata");
-      for (let btn of buttons) {
-        btn.onchange = function () {
-          // console.log(this.dataset.id);
-          // console.log('veikia')
-
-          axios({
-            method: "get",
-            url: "http://localhost:3000/atlikta/" + this.dataset.id,
-          })
-            .then(function (response) {
-              console.log(response);
-              axios({
-                method: "get",
-                url: "http://localhost:3000/darbai",
-              })
-                .then(function (response) {
-                  console.log(response);
-                  document.getElementById("darbai").innerHTML = response.data;
-                  veluojantysDarbai();
-                  atnaujintiMygtukus();
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
+      function atnaujintiMygtukus() {
+        let buttons = document.getElementsByClassName("senddata");
+        for (let btn of buttons) {
+          btn.onchange = function () {
+            // console.log(this.dataset.id);
+            // console.log('veikia')
+            
+            axios({
+              method: "get",
+              url: "http://localhost:3000/atlikta/" + this.dataset.id,
             })
-            .catch(function (error) {
-              console.log(error);
-            });
-        };
+              .then(function (response) {
+                console.log(response);
+                uzkrautiDarbus();
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          };
+        }
       }
-    }
 
-    atnaujintiMygtukus();
+      // veluojantysDarbai();
+      function uzkrautiDarbus() {
+        axios({
+          method: "get",
+          url: "http://localhost:3000/darbai",
+        })
+          .then(function (response) {
+            console.log(response);
+            document.getElementById("darbai").innerHTML = response.data;
+            veluojantysDarbai();
+            atnaujintiMygtukus();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+
+      // uzkrautiDarbus();
+      setTimeout(uzkrautiDarbus, 1000);
+
     </script>
   </body>
 </html>

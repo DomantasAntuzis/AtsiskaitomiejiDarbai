@@ -46,50 +46,18 @@ app.get("/", (req, res) => {
   res.sendFile("/public/forma.html", { root: __dirname });
 });
 
-// app.post("/prideti", (req, res) => {
-//   var sql = `INSERT INTO darbai (darbas, laikas) VALUES ('${req.body.darbas}', '${req.body.laikas}')`;
-//   con.query(sql, function (err, result) {
-//     if (err) throw err;
-//     res.send("duomenys sekmingai prideti");
-//   });;
-// })
+app.post("/prideti", (req, res) => {
+  var sql = `INSERT INTO darbai (darbas, laikas) VALUES ('${req.body.darbas}', '${req.body.laikas}')`;
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    res.send("duomenys sekmingai prideti");
+  });
+})
 
 app.get("/masyvas", (req, res) => {
-  con.query(
-    "SELECT * FROM darbai ORDER BY atliktas, CASE WHEN laikas IS null THEN 1 ELSE 0 END ASC, laikas ASC;",
-    function (err, result, fields) {
-      if (err) throw err;
-      let i = 0;
-      let newresults = [];
-
-      //Čia per sudėtingai išėjo
-
-      const currentdate = new Date();
-      
-      for (i; i < result.length; i++) {
-        let newdate;
-        let obj = {};
-        obj.id = result[i].id;
-        obj.darbas = result[i].darbas;
-        let replace = JSON.stringify(result[i].laikas).replace(/[TZ"_]/g, " ");
-        let slice = replace.slice(0, -6);
-        if (result[i].laikas != null) {
-          newdate = new Date(result[i].laikas);
-        }
-        let status = result[i].atliktas;
-        if (newdate && newdate < currentdate && status == 0) {
-          slice += " VĖLUOJI";
-        }
-        obj.laikas = slice;
-        obj.status = result[i].atliktas;
-        newresults.push(obj);
-      }
-
-      twing.render("masyvas.html", { darbai: newresults }).then((output) => {
-        res.send(output);
-      });
-    }
-  );
+  twing.render("masyvas.html").then((output) => {
+    res.send(output);
+  });
 });
 
 app.get("/atlikta/:id", (req, res) => {
