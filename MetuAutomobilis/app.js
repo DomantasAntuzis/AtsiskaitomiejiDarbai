@@ -170,7 +170,10 @@ app.get("/api/automobiliai/balsai", (req, res) => {
     };
   });
 
+console.log(VotesData)
+
   let newVotesData = VotesData.sort((a, b) => (a.votes < b.votes ? 1 : -1));
+
 
   let i = 0;
   let l = 1;

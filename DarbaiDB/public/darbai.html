@@ -1,0 +1,10 @@
+{% for darbas in darbai %}
+<div class="card mb-3">
+  <div class="card-body">
+    <p>Darbas: {{ darbas.darbas }}</p>
+    <p>Laikas: {{ darbas.laikas }}</p>
+    <p>Statusas: {{ darbas.status }}</p>
+    <input type="checkbox" class="senddata" data-id="{{ darbas.id }}"{% if darbas.status %} checked disabled {% endif %}></input>
+  </div>
+</div>
+{% endfor %}
