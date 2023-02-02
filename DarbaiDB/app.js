@@ -42,26 +42,28 @@ con.query(sql, function (err, result) {
   console.log("Table created");
 });
 
-app.get("/", (req, res) => {
-  res.sendFile("/public/forma.html", { root: __dirname });
+app.post("/", (req, res) => {
+  if(req.body.laikas){
+    var sql = `INSERT INTO darbai (darbas, laikas) VALUES (?, ?);`;
+    var values = [req.body.darbas, req.body.laikas];
+  }else{
+    var sql = `INSERT INTO darbai (darbas) VALUES (?);`;
+    var values = [req.body.darbas];
+  }
+  con.query(sql, values, function (err, result) {
+    if (err) throw err;
+    res.redirect("/");
+  });
 });
 
-app.post("/prideti", (req, res) => {
-  var sql = `INSERT INTO darbai (darbas, laikas) VALUES ('${req.body.darbas}', '${req.body.laikas}')`;
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    res.send("duomenys sekmingai prideti");
-  });
-})
-
-app.get("/masyvas", (req, res) => {
+app.get("/", (req, res) => {
   twing.render("masyvas.html").then((output) => {
     res.send(output);
+    console.log(req.body.darbas);
   });
 });
 
 app.get("/atlikta/:id", (req, res) => {
-
   con.query(
     "UPDATE darbai SET atliktas = 1 WHERE id = ?;",
     [req.params.id],
@@ -69,7 +71,6 @@ app.get("/atlikta/:id", (req, res) => {
       res.send(req.params.id);
     }
   );
-
 });
 
 app.get("/darbai", (req, res) => {
@@ -83,7 +84,7 @@ app.get("/darbai", (req, res) => {
       //Čia per sudėtingai išėjo
 
       const currentdate = new Date();
-      
+
       for (i; i < result.length; i++) {
         let newdate;
         let obj = {};
