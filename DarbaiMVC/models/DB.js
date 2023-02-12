@@ -56,3 +56,20 @@ let atnaujinti = await connection.query(
   );
   return atnaujinti
 };
+
+exports.PostWithTime = async(params) => {
+let atnaujinti = await connection.query(
+  `INSERT INTO darbai (darbas, laikas) VALUES (?, ?);`,
+    params
+  );
+  return atnaujinti
+};
+
+exports.Post = async(params) => {
+let atnaujinti = await connection.query(
+  `INSERT INTO darbai (darbas) VALUES (?);`,
+    params
+  );
+  return atnaujinti
+};
+
